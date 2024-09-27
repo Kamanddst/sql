@@ -1,6 +1,6 @@
 # Assignment 1: Design a Logical Model
 
-## Question 1
+##  
 Create a logical model for a small bookstore. 📚
 
 At the minimum it should have employee, order, sales, customer, and book entities (tables). Determine sensible column and table design based on what you know about these concepts. Keep it simple, but work out sensible relationships to keep tables reasonably sized. Include a date table. There are several tools online you can use, I'd recommend [_Draw.io_](https://www.drawio.com/) or [_LucidChart_](https://www.lucidchart.com/pages/).
@@ -17,6 +17,29 @@ Bonus: Are there privacy implications to this, why or why not?
 ```
 Your answer...
 ```
+Type 1: Overwriting Changes
+One record per customer. When an address changes, the old address is replaced with the new one.
+table:
+customer_id(Foreign Key to Customer)
+Address fields
+updated_at(timestamp of the last update)
+Usage: Simple and requires less storage, but no history is kept.
+
+Type 2: Retaining Changes
+A new record is added each time the address changes, retaining all historical addresses.
+table:
+customer_address_id (Primary Key)
+customer_id (Foreign Key to Customer)
+Address fields
+start_date, end_date (to track when each address is active)
+is_current (to mark the active address)
+Usage: Keeps a history of changes but uses more storage.
+
+
+Bonus Answer:
+
+Yes, there are privacy implications with storing customer addresses, especially when retaining historical data. Keeping old addresses (Type 2) raises the risk of sensitive data exposure and potential privacy violations if not protected. However, storing only the current address (Type 1) reduces these risks by keeping less sensitive information.
+
 
 ## Question 4
 Review the AdventureWorks Schema [here](https://i.stack.imgur.com/LMu4W.gif)
@@ -25,6 +48,10 @@ Highlight at least two differences between it and your ERD. Would you change any
 ```
 Your answer...
 ```
+
+1.Address Type Table: The AdventureWorks schema has a separate AddressType table to categorize addresses (like home, business, and billing). This organization makes it easier to add new address types without changing the main address table.
+
+2.Additional Tables : AdventureWorks uses additional tables for things like product details, customer information, and sales records.
 
 # Criteria
 
